@@ -11,13 +11,12 @@ class BBCoder
     def push(tag)
       tag, meta = if tag.include?("=")
                     splits = tag.split("=")
-                    [splits.shift.downcase.to_sym, splits.join('=')]
+                    [splits.shift, splits.join('=')]
                   else
-                    [tag.downcase.to_sym, nil]
+                    [tag, nil]
                   end
-
-      if criteria_met?(tag)
-        _internal.push(tag)
+      if criteria_met?(tag.downcase.to_sym)
+        _internal.push(tag.downcase.to_sym)
         _meta[size] = meta
       else
         buffer.push(BBCoder::Tag.reform(tag, meta))
