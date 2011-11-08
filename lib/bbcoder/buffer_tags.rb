@@ -25,7 +25,7 @@ class BBCoder
 
     # logic when popping specific tag
     def pop(tag)
-      tag = tag.downcase.to_sym
+      tag = tag.downcase.to_sym unless tag.is_a? Symbol
       if empty? || !include?(tag)
         buffer.push("[/#{tag}]")
       elsif last == tag
